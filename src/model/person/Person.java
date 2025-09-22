@@ -1,26 +1,55 @@
 package model.person;
 
-public class Person {
+import java.util.regex.Pattern;
+
+public abstract class   Person {
     protected String nom;
     protected String prenom;
     protected String email;
 
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+
     public Person(String nom, String prenom, String email) {
-       this.nom = validerFullName(nom);
-       this.prenom = validerFullName(prenom);
-       this.email = validerEmail(email);
+       this.nom = nom;
+       this.prenom =prenom;
+       validerEmail(email);
     }
 
-    private String validerEmail(String email) {
-  return "";
+    private void validerEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            System.out.println("❌ L'email ne peut pas être vide.");
+            return;
+        }
+        if (!EMAIL_PATTERN.matcher(email).matches()) {
+            System.out.println("❌ Format d'email invalide.");
+            return;
+        }
+       this.email = email;
     }
 
     private String validerFullName(String nom) {
-        return "";
+        if (nom == null || nom.trim().isEmpty()) {
+            return "❌ Le nom complet ne peut pas être vide.";
+        }
+        // Supprimer les espaces en trop
+        nom = nom.trim();
+
+        // Vérifie si contient des chiffres
+        if (nom.matches(".*\\d.*")) {
+            return "❌ Le nom complet ne doit pas contenir de chiffres.";
+        }
+
+        // Vérifie si au moins prénom + nom
+        if (!nom.contains(" ")) {
+            return "❌ Le nom complet doit contenir au moins un prénom et un nom.";
+        }
+
+        return nom;
     }
 
     private void setEmail(String email) {
-        this.email=validerEmail(email);
+        validerEmail(email);
     }
 
     private void setPrenom(String prenom) {
