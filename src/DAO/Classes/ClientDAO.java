@@ -15,12 +15,12 @@ public class ClientDAO implements ClientInterface {
         this.connection =  DataBase.getInstance().getConnection();
      }
     @Override
-    public void ajouterClient(Client client) throws SQLException {
-        String req="insert into client('nom','prenom','email') Values(?,?,?);";
+    public void ajouterClient(String nom,String prenom , String email) throws SQLException {
+        String req="insert into Client(nom,prenom,email) Values(?,?,?);";
         PreparedStatement preparedStatement= connection.prepareStatement(req);
-        preparedStatement.setString(1,client.getNom());
-        preparedStatement.setString(2,client.getPrenom());
-        preparedStatement.setString(3,client.getEmail());
+        preparedStatement.setString(1,nom);
+        preparedStatement.setString(2,prenom);
+        preparedStatement.setString(3,email);
         preparedStatement.execute();
     }
 
