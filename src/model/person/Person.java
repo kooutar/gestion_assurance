@@ -12,10 +12,11 @@ public class Person {
     }
 
     private String validerEmail(String email) {
-
+  return "";
     }
 
     private String validerFullName(String nom) {
+        return "";
     }
 
     private void setEmail(String email) {
