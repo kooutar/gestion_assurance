@@ -1,6 +1,6 @@
-package enumeration
+package enumeration;
 
-enum class Contrats {
+public enum Contrats {
     Automobile,
     IMMOBILIER,
     MALADIE

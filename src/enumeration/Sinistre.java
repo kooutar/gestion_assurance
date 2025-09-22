@@ -1,6 +1,6 @@
-package enumeration
+package enumeration;
 
-enum class Sinistre {
+public enum Sinistre {
     ACCIDENTVOITURE,
     ACCIDENTMAISON,
     MALADIE
