@@ -13,6 +13,11 @@ public class Conseiller extends Person {
         this.conseillerDAO = new ConseillerDAO(); // ⚠️ initialisation obligatoire
     }
 
+    public Conseiller(String nom, String prenom, String email, Integer Id) throws SQLException, ClassNotFoundException {
+        super(nom, prenom, email, Id);
+        this.conseillerDAO = new ConseillerDAO();
+    }
+
     public void AjouterConseiller() throws SQLException {
         conseillerDAO.AjouterConseiller(nom,prenom,email);
 

@@ -6,7 +6,7 @@ public abstract class   Person {
     protected String nom;
     protected String prenom;
     protected String email;
-
+    protected Integer Id;
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
@@ -14,6 +14,13 @@ public abstract class   Person {
        this.nom = nom;
        this.prenom =prenom;
        validerEmail(email);
+    }
+
+    public Person(String nom, String prenom, String email, Integer Id) {
+        this.nom = nom;
+        this.prenom =prenom;
+        this.Id = Id;
+        validerEmail(email);
     }
 
     private void validerEmail(String email) {
@@ -70,6 +77,10 @@ public abstract class   Person {
 
     public String getPrenom() {
         return prenom;
+    }
+
+    public Integer getId() {
+        return Id;
     }
 
     @Override

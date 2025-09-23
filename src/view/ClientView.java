@@ -14,7 +14,7 @@ public class ClientView {
     }
      public void menuPrincipale() throws SQLException {
          System.out.println("Menu principal");
-         System.out.println("1. Cree compte Conseiller");
+         System.out.println("1. Cree compte client");
          int choix =scanner.nextInt();
          scanner.nextLine();
          switch(choix){
@@ -31,6 +31,8 @@ public class ClientView {
         String prenom = scanner.nextLine();
         System.out.println("saiser votre email");
         String email = scanner.nextLine();
-        clientService.ajouterClient(nom,prenom,email);
+        System.out.println("saiser  email de Coneiller");
+        String emailConseiller = scanner.nextLine();
+        clientService.ajouterClient(nom,prenom,email,emailConseiller);
     }
 }
