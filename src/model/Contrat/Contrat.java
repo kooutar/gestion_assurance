@@ -11,10 +11,12 @@ public class Contrat {
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private ArrayList<Sinistre> sinistres;
-
-    public Contrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin) {
+    private Integer idContrat;
+    public Contrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin,Integer idContrat) {
         this.typeContrat = typeContrat;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.idContrat = idContrat;
     }
+
 }

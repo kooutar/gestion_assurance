@@ -30,6 +30,7 @@ public class ConseillerDAO implements ConseillerInterface {
     @Override
     public void SupprimerConseiller(Conseiller conseiller) {
 
+
     }
 
     @Override
@@ -61,7 +62,7 @@ public class ConseillerDAO implements ConseillerInterface {
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-             Conseiller conseiller= new Conseiller(resultSet.getString("nom"),resultSet.getString("prenom"),resultSet.getString("email"));
+             Conseiller conseiller= new Conseiller(resultSet.getString("nom"),resultSet.getString("prenom"),resultSet.getString("email"),resultSet.getInt("id"));
              Conseillers.add(conseiller);
         }
         if(Conseillers.isEmpty()){

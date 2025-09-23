@@ -1,13 +1,13 @@
 package DAO.Classes;
 
 import DAO.Interfaces.ClientInterface;
-import DAO.Interfaces.Contrat;
-import DAO.Interfaces.Sinistre;
+import DAO.Interfaces.ContratInterface;
+import DAO.Interfaces.SinistreInterface;
 
 import java.util.Collections;
 import java.util.List;
 
-public class SinistreDAO implements Sinistre {
+public class SinistreDAO implements SinistreInterface {
     @Override
     public void ajouterSinistre(ClientInterface client) {
 
@@ -24,7 +24,7 @@ public class SinistreDAO implements Sinistre {
     }
 
     @Override
-    public List<Sinistre> getSinistreContrat(Contrat contrat) {
+    public List<SinistreInterface> getSinistreContrat(ContratInterface contrat) {
         return Collections.emptyList();
     }
 }

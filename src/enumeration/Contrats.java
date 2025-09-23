@@ -1,7 +1,7 @@
 package enumeration;
 
 public enum Contrats {
-    Automobile,
+    AUTOMOBILE,
     IMMOBILIER,
     MALADIE
 }

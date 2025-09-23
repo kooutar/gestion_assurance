@@ -8,10 +8,6 @@ import java.util.ArrayList;
 public class Conseiller extends Person {
     private ArrayList<Client> clients;
     private ConseillerDAO conseillerDAO;
-    public Conseiller(String nom, String prenom, String email) throws SQLException, ClassNotFoundException {
-        super(nom, prenom, email);
-        this.conseillerDAO = new ConseillerDAO(); // ⚠️ initialisation obligatoire
-    }
 
     public Conseiller(String nom, String prenom, String email, Integer Id) throws SQLException, ClassNotFoundException {
         super(nom, prenom, email, Id);
