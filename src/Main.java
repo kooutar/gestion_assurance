@@ -1,12 +1,11 @@
-import databaseConnection.DataBase;
-import model.person.Conseiller;
-import service.ConseillerService;
+
 import view.ClientView;
 import view.ConseillerView;
 import view.ContratView;
+import view.SinistreView;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -32,7 +31,11 @@ public class Main {
             case 3:
                  ConseillerView conseillerView = new ConseillerView();
                  conseillerView.menuPrincipal();
-
+                 break;
+            case 4:
+                SinistreView sinistreView = new SinistreView();
+                sinistreView.menuPrincipale();
+                break;
         }
 
 

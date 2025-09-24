@@ -17,14 +17,26 @@ public class ContratView {
     }
     public void menuPrincipale(){
         System.out.println("Menu principal Contrat");
-        System.out.println("1. Cree compte client");
+        System.out.println("1. ajouter Contrat");
+        System.out.println("2. modifier Contrat");
+        System.out.println("3. Supprimer Contrat");
+        System.out.println("4. lister Contrats");
+
         int choix =scanner.nextInt();
         scanner.nextLine();
         switch(choix){
             case 1:
                 creeContrat();
                 break;
+            case 2:
+                modifierContrat();
+                break;
         }
+    }
+
+    private void modifierContrat() {
+
+
     }
 
     private void creeContrat() {

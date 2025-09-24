@@ -1,6 +1,6 @@
 package enumeration;
 
-public enum Sinistre {
+public enum Sinistres {
     ACCIDENTVOITURE,
     ACCIDENTMAISON,
     MALADIE

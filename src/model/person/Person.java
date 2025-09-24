@@ -2,7 +2,7 @@ package model.person;
 
 import java.util.regex.Pattern;
 
-public abstract class   Person {
+public abstract class Person {
     protected String nom;
     protected String prenom;
     protected String email;
