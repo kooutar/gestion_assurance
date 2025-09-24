@@ -7,6 +7,7 @@ import model.person.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 
 
 public class ClientDAO implements ClientInterface {
@@ -16,15 +17,49 @@ public class ClientDAO implements ClientInterface {
      }
 
     @Override
-    public void ajouterClient(String nom,String prenom , String email,int id_conseiller) throws SQLException {
-        String req="insert into Client(nom,prenom,email,id_conseiller) Values(?,?,?,?);";
-        PreparedStatement preparedStatement= connection.prepareStatement(req);
-        preparedStatement.setString(1,nom);
-        preparedStatement.setString(2,prenom);
-        preparedStatement.setString(3,email);
-        preparedStatement.setInt(4,id_conseiller);
-        preparedStatement.execute();
+    public void ajouterClient(
+            String nom,
+            String prenom,
+            String email,
+            int idConseiller,
+            Optional<Integer> idClient
+    ) throws SQLException {
+        // ✅ Sécurité : si jamais idClient est passé en null
+        if (idClient == null) {
+            idClient = Optional.empty();
+        }
+
+        String req;
+        PreparedStatement ps;
+
+        if (idClient.isPresent()) {
+            // 👉 UPDATE
+            req = "UPDATE Client SET nom=?, prenom=?, email=?, id_conseiller=? WHERE id=?";
+            ps = connection.prepareStatement(req);
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setString(3, email);
+            ps.setInt(4, idConseiller);
+            ps.setInt(5, idClient.get());
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("✅ Client mis à jour avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun client trouvé avec cet id !");
+            }
+        } else {
+            // 👉 INSERT
+            req = "INSERT INTO Client(nom, prenom, email, id_conseiller) VALUES (?,?,?,?)";
+            ps = connection.prepareStatement(req);
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setString(3, email);
+            ps.setInt(4, idConseiller);
+            ps.executeUpdate();
+            System.out.println("✅ Client ajouté avec succès !");
+        }
     }
+
 
 
 

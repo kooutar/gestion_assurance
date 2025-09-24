@@ -7,6 +7,7 @@ import model.person.Conseiller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class ClientService {
     private Connection connection;
@@ -19,7 +20,7 @@ public class ClientService {
         this.clientDAO = new ClientDAO();
         this.conseillerDAO = new ConseillerDAO();
     }
-    public void ajouterClient(String nom,String prenom , String email,String emailConseiller) throws SQLException
+    public void ajouterClient(String nom,String prenom , String email,String emailConseiller, Optional<Integer> idClient) throws SQLException
     {
 
         Conseiller conseiller= conseillerDAO.getConseillerByMail(emailConseiller);
@@ -28,6 +29,6 @@ public class ClientService {
             System.out.println("Erreur : la conseiller est vide !");
             return;
         }
-        clientDAO.ajouterClient(nom,prenom,email,conseiller.getId());
+        clientDAO.ajouterClient(nom,prenom,email,conseiller.getId(),idClient);
     }
 }
