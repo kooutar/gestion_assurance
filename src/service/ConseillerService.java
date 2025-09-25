@@ -18,6 +18,10 @@ public class ConseillerService {
         conseiller.AjouterConseiller(nom,prenom,email,idConseiller);
     }
 
+    public void supprimerConseiller(int idConseiller) throws SQLException {
+        conseiller.supprimerConseiller(idConseiller);
+    }
+
     public ArrayList getConseillers() throws SQLException, ClassNotFoundException {
         return conseiller.getConseiller();
     }

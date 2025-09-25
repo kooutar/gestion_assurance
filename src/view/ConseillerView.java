@@ -26,11 +26,21 @@ public class ConseillerView {
             case 2:
                 modifierCompte();
                 break;
+            case 3:
+                supprimerCompte();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + choix);
 
         }
 
+    }
+
+    private void supprimerCompte() throws SQLException {
+        System.out.println("saiser id de Compte ");
+        int idCompte = scanner.nextInt();
+        scanner.nextLine();
+        conseillerService.supprimerConseiller(idCompte);
     }
 
     private void modifierCompte() throws SQLException {

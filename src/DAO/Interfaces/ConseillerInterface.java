@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ConseillerInterface {
     public void AjouterConseiller(String nom , String prenom , String mail, Optional<Integer> idConseiller) throws SQLException;
-    public void SupprimerConseiller(Conseiller conseiller);
+    void supprimerConseiller(int idConseiller);
     public void ModifierConseiller(Conseiller conseiller);
 
 

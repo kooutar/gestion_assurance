@@ -61,10 +61,23 @@ public class ConseillerDAO implements ConseillerInterface {
 
 
     @Override
-    public void SupprimerConseiller(Conseiller conseiller) {
+    public void supprimerConseiller(int idConseiller) {
+        String req = "DELETE FROM Conseiller WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setInt(1, idConseiller);
+            int rows = ps.executeUpdate();
 
-
+            if (rows > 0) {
+                System.out.println("✅ Conseiller supprimé avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun conseiller trouvé avec cet id !");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("❌ Erreur lors de la suppression du conseiller");
+        }
     }
+
 
     @Override
     public void ModifierConseiller(Conseiller conseiller) {
