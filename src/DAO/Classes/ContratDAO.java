@@ -73,9 +73,23 @@ public class ContratDAO implements ContratInterface {
 
 
     @Override
-    public void supprimerContrat() {
+    public void supprimerContrat(int idContrat) {
+        String req = "DELETE FROM Contrat WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setInt(1, idContrat);
+            int rows = ps.executeUpdate();
 
+            if (rows > 0) {
+                System.out.println("✅ Contrat supprimé avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun contrat trouvé avec cet id !");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("❌ Erreur lors de la suppression du contrat");
+        }
     }
+
 
     @Override
     public void modifierContrat() {

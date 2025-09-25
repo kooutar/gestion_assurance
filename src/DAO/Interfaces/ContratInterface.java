@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ContratInterface {
     public void getContrat();
     public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin,Optional<Integer>idContrat) throws SQLException;
-    public void supprimerContrat();
+    public void supprimerContrat(int idContrat);
     public void modifierContrat();
 
 }

@@ -16,7 +16,7 @@ public class ContratView {
         contratService = new ContratService();
         scanner = new Scanner(System.in);
     }
-    public void menuPrincipale(){
+    public void menuPrincipale() throws SQLException {
         System.out.println("Menu principal Contrat");
         System.out.println("1. ajouter Contrat");
         System.out.println("2. modifier Contrat");
@@ -32,6 +32,10 @@ public class ContratView {
             case 2:
                 modifierContrat();
                 break;
+            case 3:
+                supprimerContrat();
+                break;
+
         }
     }
 
@@ -78,5 +82,12 @@ public class ContratView {
         }
 
 
+    }
+
+    private void supprimerContrat() throws SQLException {
+        System.out.println("Saiser idContrat");
+        int idContrat = scanner.nextInt();
+        scanner.nextLine();
+        contratService.supprimerContrat(idContrat);
     }
 }

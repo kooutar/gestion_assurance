@@ -23,15 +23,8 @@ public class SinistreDAO implements SinistreInterface {
     }
 
     @Override
-    public void ajouterSinistre(
-            LocalDateTime dateTime,
-            Sinistres typeSinistre,
-            double montant,
-            String description,
-            int idContrat,
-            Optional<Integer> idSinistre
-    ) throws SQLException {
-        // ✅ Sécurité : si jamais on passe null à la place d’un Optional
+    public void ajouterSinistre(LocalDateTime dateTime, Sinistres typeSinistre, double montant, String description, int idContrat, Optional<Integer> idSinistre) throws SQLException {
+
         if (idSinistre == null) {
             idSinistre = Optional.empty();
         }
@@ -40,7 +33,7 @@ public class SinistreDAO implements SinistreInterface {
         PreparedStatement statement;
 
         if (idSinistre.isPresent()) {
-            // 👉 UPDATE
+
             req = "UPDATE Sinistre SET typeSinistre=?, dateSinistre=?, montant=?, description=?, id_contrat=? WHERE id=?";
             statement = connection.prepareStatement(req);
             statement.setString(1, typeSinistre.toString());
@@ -56,7 +49,7 @@ public class SinistreDAO implements SinistreInterface {
                 System.out.println("⚠️ Aucun sinistre trouvé avec cet id !");
             }
         } else {
-            // 👉 INSERT
+
             req = "INSERT INTO Sinistre(typeSinistre, dateSinistre, montant, description, id_contrat) VALUES (?,?,?,?,?)";
             statement = connection.prepareStatement(req);
             statement.setString(1, typeSinistre.toString());

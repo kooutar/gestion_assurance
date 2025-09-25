@@ -16,4 +16,8 @@ public class ContratService {
         contratDAO.ajouterContrat(typeContrat,dateDebut,dateFin,idContrat);
 
     }
+
+    public  void supprimerContrat(int idContart) throws SQLException {
+        contratDAO.supprimerContrat(idContart);
+    }
 }
