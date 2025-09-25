@@ -3,6 +3,7 @@ package view;
 import service.ConseillerService;
 
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ConseillerView {
@@ -15,14 +16,34 @@ public class ConseillerView {
     public void menuPrincipal() throws SQLException {
         System.out.println("Menu principal");
         System.out.println("1. Cree compte Conseiller");
+        System.out.println("2. Modifier compte Conseiller");
          int choix =scanner.nextInt();
         scanner.nextLine();
         switch(choix){
             case 1:
                 creeCompte();
                 break;
+            case 2:
+                modifierCompte();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + choix);
+
         }
 
+    }
+
+    private void modifierCompte() throws SQLException {
+         System.out.println("saiser id de Compte ");
+         int idCompte = scanner.nextInt();
+         scanner.nextLine();
+        System.out.println("saiser votre nom");
+        String nom = scanner.nextLine();
+        System.out.println("saiser votre prenom");
+        String prenom = scanner.nextLine();
+        System.out.println("saiser votre email");
+        String email = scanner.nextLine();
+        conseillerService.ajouterConseiller(nom,prenom,email, Optional.of(idCompte));
     }
 
     private void creeCompte() throws SQLException {
@@ -32,6 +53,6 @@ public class ConseillerView {
          String prenom = scanner.nextLine();
          System.out.println("saiser votre email");
          String email = scanner.nextLine();
-        conseillerService.ajouterConseiller(nom,prenom,email);
+        conseillerService.ajouterConseiller(nom,prenom,email,null);
     }
 }

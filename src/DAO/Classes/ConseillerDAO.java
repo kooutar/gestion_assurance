@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ConseillerDAO implements ConseillerInterface {
     private Connection connection ;
@@ -18,14 +19,46 @@ public class ConseillerDAO implements ConseillerInterface {
         Conseillers= new ArrayList<>();
     }
     @Override
-    public void AjouterConseiller(String nom ,String prenom , String email) throws SQLException {
-        String req ="insert into Conseiller (nom,prenom,email) values(?,?,?);";
-        PreparedStatement preparedStatement = connection.prepareStatement(req);
-        preparedStatement.setString(1,nom);
-        preparedStatement.setString(2,prenom);
-        preparedStatement.setString(3,email);
-        preparedStatement.executeUpdate();
+    public void AjouterConseiller(
+            String nom,
+            String prenom,
+            String email,
+            Optional<Integer> idConseiller
+    ) throws SQLException {
+        // ✅ Sécurité : si null
+        if (idConseiller == null) {
+            idConseiller = Optional.empty();
+        }
+
+        String req;
+        PreparedStatement ps;
+
+        if (idConseiller.isPresent()) {
+            // 👉 UPDATE
+            req = "UPDATE Conseiller SET nom=?, prenom=?, email=? WHERE id=?";
+            ps = connection.prepareStatement(req);
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setString(3, email);
+            ps.setInt(4, idConseiller.get());
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("✅ Conseiller mis à jour avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun conseiller trouvé avec cet id !");
+            }
+        } else {
+            // 👉 INSERT
+            req = "INSERT INTO Conseiller(nom, prenom, email) VALUES (?,?,?)";
+            ps = connection.prepareStatement(req);
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setString(3, email);
+            ps.executeUpdate();
+            System.out.println("✅ Conseiller ajouté avec succès !");
+        }
     }
+
 
     @Override
     public void SupprimerConseiller(Conseiller conseiller) {

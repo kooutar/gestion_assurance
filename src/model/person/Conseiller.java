@@ -4,6 +4,7 @@ import DAO.Classes.ConseillerDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Conseiller extends Person {
     private ArrayList<Client> clients;
@@ -16,7 +17,7 @@ public class Conseiller extends Person {
 
     public void AjouterConseiller() throws SQLException {
 
-        conseillerDAO.AjouterConseiller(nom,prenom,email);
+        conseillerDAO.AjouterConseiller(nom,prenom,email, Optional.ofNullable(Id));
 
     }
 

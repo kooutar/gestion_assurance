@@ -5,6 +5,7 @@ import model.person.Conseiller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class ConseillerService {
@@ -13,8 +14,8 @@ public class ConseillerService {
         conseiller= new ConseillerDAO();
     }
 
-    public void ajouterConseiller(String nom ,String prenom,String email) throws SQLException {
-        conseiller.AjouterConseiller(nom,prenom,email);
+    public void ajouterConseiller(String nom , String prenom, String email, Optional<Integer>idConseiller) throws SQLException {
+        conseiller.AjouterConseiller(nom,prenom,email,idConseiller);
     }
 
     public ArrayList getConseillers() throws SQLException, ClassNotFoundException {
