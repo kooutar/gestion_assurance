@@ -6,6 +6,7 @@ import service.ContratService;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ContratView {
@@ -36,7 +37,25 @@ public class ContratView {
 
     private void modifierContrat() {
 
-
+        try {
+            System.out.println("saiser id contrat");
+            int idContrat = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Saiser TypeContart");
+            String typeContratString= scanner.nextLine();
+            String typeContratUperCase= typeContratString.toUpperCase();
+            Contrats typeContrat = Contrats.valueOf(typeContratUperCase);
+            System.out.println("Saiser date Fin de contrat");
+            String DateFinContrat = scanner.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
+            LocalDateTime dateFinparsee= LocalDateTime.parse(DateFinContrat,formatter);
+            LocalDateTime dateDebut = LocalDateTime.now();
+            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee, Optional.ofNullable(idContrat));
+        }catch (IllegalArgumentException e){
+            System.out.println("❌ Contrat invalide !");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void creeContrat() {
@@ -51,7 +70,7 @@ public class ContratView {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
             LocalDateTime dateFinparsee= LocalDateTime.parse(DateFinContrat,formatter);
             LocalDateTime dateDebut = LocalDateTime.now();
-            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee);
+            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee, Optional.ofNullable(null));
         }catch (IllegalArgumentException e){
             System.out.println("❌ Contrat invalide !");
         } catch (SQLException e) {

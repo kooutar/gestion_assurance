@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class ContratDAO implements ContratInterface {
     private Connection connection;
@@ -24,23 +25,51 @@ public class ContratDAO implements ContratInterface {
     }
 
     @Override
-    public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin) throws SQLException {
-        String typeContratString=typeContrat.toString();
-        String req ="insert into Contrat(typeContrat, dateDebut, dateFin) values(?,?,?);";
-        PreparedStatement preparedStatement = connection.prepareStatement(req);
-        try {
+    public void ajouterContrat(
+            Contrats typeContrat,
+            LocalDateTime dateDebut,
+            LocalDateTime dateFin,
+            Optional<Integer> idContrat
+    ) throws SQLException {
+        // ✅ Sécurité : éviter un Optional null
+        if (idContrat == null) {
+            idContrat = Optional.empty();
+        }
 
-            preparedStatement.setObject(1, typeContratString);
-            preparedStatement.setObject(2, dateDebut);
-            preparedStatement.setObject(3, dateFin);
-            preparedStatement.executeUpdate();
-            System.out.println("Ajout Contrat done");
-        }catch(SQLException e){
-            System.out.println(e.getStackTrace());
-            System.out.println("erreur Ajout Contrat");
+        String req;
+        PreparedStatement ps;
+
+        try {
+            if (idContrat.isPresent()) {
+                // 👉 UPDATE
+                req = "UPDATE Contrat SET typeContrat=?, dateDebut=?, dateFin=? WHERE id=?";
+                ps = connection.prepareStatement(req);
+                ps.setString(1, typeContrat.toString());
+                ps.setObject(2, dateDebut);
+                ps.setObject(3, dateFin);
+                ps.setInt(4, idContrat.get());
+
+                int rows = ps.executeUpdate();
+                if (rows > 0) {
+                    System.out.println("✅ Contrat mis à jour avec succès !");
+                } else {
+                    System.out.println("⚠️ Aucun contrat trouvé avec cet id !");
+                }
+            } else {
+                // 👉 INSERT
+                req = "INSERT INTO Contrat(typeContrat, dateDebut, dateFin) VALUES (?,?,?)";
+                ps = connection.prepareStatement(req);
+                ps.setString(1, typeContrat.toString());
+                ps.setObject(2, dateDebut);
+                ps.setObject(3, dateFin);
+                ps.executeUpdate();
+                System.out.println("✅ Contrat ajouté avec succès !");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // ⚠️ affichage clair de l'erreur
+            System.out.println("❌ Erreur lors de l'ajout/mise à jour du contrat");
         }
     }
-
 
 
     @Override

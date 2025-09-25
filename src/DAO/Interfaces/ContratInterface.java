@@ -4,10 +4,11 @@ import enumeration.Contrats;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public interface ContratInterface {
     public void getContrat();
-    public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin) throws SQLException;
+    public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin,Optional<Integer>idContrat) throws SQLException;
     public void supprimerContrat();
     public void modifierContrat();
 
