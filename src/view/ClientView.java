@@ -17,6 +17,7 @@ public class ClientView {
          System.out.println("Menu principal");
          System.out.println("1. Cree compte client");
          System.out.println("2. modifier compte");
+         System.out.println("3. supprimer compte");
          int choix =scanner.nextInt();
          scanner.nextLine();
          switch(choix){
@@ -26,12 +27,22 @@ public class ClientView {
              case 2:
                  modifierCompte();
                  break;
+              case 3:
+                  supprimerCompte();
+                  break;
              default:
                  throw new IllegalStateException("Unexpected value: " + choix);
          }
      }
 
-     private  void modifierCompte() throws SQLException, ClassNotFoundException {
+    private void supprimerCompte() throws SQLException {
+        System.out.println("saiser id de compte a supprime ");
+       int idcompte= scanner.nextInt();
+       scanner.nextLine();
+       clientService.supprimerClient(idcompte);
+    }
+
+    private  void modifierCompte() throws SQLException {
         System.out.println("Saiser idc compte a modifier : ");
         Integer id=scanner.nextInt();
         scanner.nextLine();

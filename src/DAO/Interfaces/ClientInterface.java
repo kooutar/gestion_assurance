@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ClientInterface {
     public void ajouterClient(String nom , String prenom , String email, int id_conseiller, Optional<Integer> idClient) throws SQLException;
-    public boolean supprimerClient();
+    public void supprimerClient(int idClient);
     public boolean modifierClient();
 //    public HashMap<String, ClientInterface> getClients();
 

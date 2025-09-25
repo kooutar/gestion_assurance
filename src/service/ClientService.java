@@ -20,15 +20,18 @@ public class ClientService {
         this.clientDAO = new ClientDAO();
         this.conseillerDAO = new ConseillerDAO();
     }
-    public void ajouterClient(String nom,String prenom , String email,String emailConseiller, Optional<Integer> idClient) throws SQLException
-    {
 
-        Conseiller conseiller= conseillerDAO.getConseillerByMail(emailConseiller);
-        if(conseiller == null)
-        {
+    public void ajouterClient(String nom, String prenom, String email, String emailConseiller, Optional<Integer> idClient) throws SQLException {
+
+        Conseiller conseiller = conseillerDAO.getConseillerByMail(emailConseiller);
+        if (conseiller == null) {
             System.out.println("Erreur : la conseiller est vide !");
             return;
         }
-        clientDAO.ajouterClient(nom,prenom,email,conseiller.getId(),idClient);
+        clientDAO.ajouterClient(nom, prenom, email, conseiller.getId(), idClient);
+    }
+
+    public void supprimerClient(int idClient) throws SQLException {
+          clientDAO.supprimerClient(idClient);
     }
 }

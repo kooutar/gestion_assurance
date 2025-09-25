@@ -64,8 +64,21 @@ public class ClientDAO implements ClientInterface {
 
 
     @Override
-    public boolean supprimerClient() {
-        return false;
+    public void supprimerClient(int idClient) {
+        String req = "DELETE FROM Client WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setInt(1, idClient);
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("✅ Client supprimé avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun client trouvé avec cet id !");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("❌ Erreur lors de la suppression du client");
+        }
     }
 
     @Override
