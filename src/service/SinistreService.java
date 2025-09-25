@@ -16,4 +16,8 @@ public class SinistreService {
     public void ajouterSinistre(LocalDateTime dateTime, Sinistres typeSinistre, double montant, String description, int idContrat, Optional<Integer> idSinistre) throws SQLException, ClassNotFoundException {
         sinistreDAO.ajouterSinistre(dateTime, typeSinistre, montant, description, idContrat,idSinistre);
     }
+
+    public  void supprimerSinistre(int idSinistre) throws SQLException, ClassNotFoundException {
+        sinistreDAO.supprimerSinistre(idSinistre);
+    }
 }

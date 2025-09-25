@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface SinistreInterface {
     public void ajouterSinistre(LocalDateTime dateTime, Sinistres typeSinistre, double montant, String description, int idContrat, Optional<Integer> idSinistre) throws SQLException;
-    public void supprimerSinistre(ClientInterface client);
+    public void supprimerSinistre(int idSinistre);
     public void modifierSinistre(ClientInterface client);
     public List<SinistreInterface> getSinistreContrat(ContratInterface contrat);
 

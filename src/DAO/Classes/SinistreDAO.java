@@ -84,7 +84,21 @@ public class SinistreDAO implements SinistreInterface {
     }
 
     @Override
-    public void supprimerSinistre(ClientInterface client) {
+    public void supprimerSinistre(int idSinistre) {
+        String req = "DELETE FROM Sinistre WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setInt(1, idSinistre);
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("✅ Sinistre supprimé avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun sinistre trouvé avec cet id !");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("❌ Erreur lors de la suppression du sinistre");
+        }
 
     }
 

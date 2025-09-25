@@ -18,10 +18,11 @@ public class SinistreView {
         scanner = new Scanner(System.in);
     }
 
-    public  void menuPrincipale(){
+    public  void menuPrincipale() throws SQLException, ClassNotFoundException {
         System.out.println("Menu principal Sinistre");
         System.out.println("1. ajouter sinistre");
         System.out.println("2. modifier sinistre");
+        System.out.println("3. supprimer sinistre");
         int choix =scanner.nextInt();
         scanner.nextLine();
         switch(choix){
@@ -31,11 +32,19 @@ public class SinistreView {
             case 2:
                 modifierSinistre();
                 break;
+             case 3:
+                 supprimerSinistre();
+                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + choix);
         }
     }
-
+   private void supprimerSinistre() throws SQLException, ClassNotFoundException {
+        System.out.println("donner moi id de sinsitre a supprimé:");
+        int idSinistre = scanner.nextInt();
+        scanner.nextLine();
+        sinistreService.supprimerSinistre(idSinistre);
+   }
     private void modifierSinistre() {
         try {
              System.out.println("id de Sinistre modifier");
