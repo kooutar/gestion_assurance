@@ -42,6 +42,9 @@ public class ContratView {
     private void modifierContrat() {
 
         try {
+            System.out.println("saiser id client");
+            int idClient = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("saiser id contrat");
             int idContrat = scanner.nextInt();
             scanner.nextLine();
@@ -54,7 +57,7 @@ public class ContratView {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
             LocalDateTime dateFinparsee= LocalDateTime.parse(DateFinContrat,formatter);
             LocalDateTime dateDebut = LocalDateTime.now();
-            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee, Optional.ofNullable(idContrat));
+            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee,idClient, Optional.ofNullable(idContrat));
         }catch (IllegalArgumentException e){
             System.out.println("❌ Contrat invalide !");
         } catch (SQLException e) {
@@ -65,6 +68,9 @@ public class ContratView {
     private void creeContrat() {
 
         try {
+            System.out.println("saiser id client");
+            int idClient = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Saiser TypeContart");
             String typeContratString= scanner.nextLine();
             String typeContratUperCase= typeContratString.toUpperCase();
@@ -74,7 +80,7 @@ public class ContratView {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
             LocalDateTime dateFinparsee= LocalDateTime.parse(DateFinContrat,formatter);
             LocalDateTime dateDebut = LocalDateTime.now();
-            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee, Optional.ofNullable(null));
+            contratService.ajouterContrat(typeContrat,dateDebut,dateFinparsee,idClient, Optional.ofNullable(null));
         }catch (IllegalArgumentException e){
             System.out.println("❌ Contrat invalide !");
         } catch (SQLException e) {

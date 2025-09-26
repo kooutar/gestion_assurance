@@ -22,8 +22,11 @@ public class ConseillerService {
         conseiller.supprimerConseiller(idConseiller);
     }
 
-    public ArrayList getConseillers() throws SQLException, ClassNotFoundException {
-        return conseiller.getConseiller();
+    public void getConseillers() throws SQLException, ClassNotFoundException {
+        ArrayList<Conseiller>conseillers= conseiller.getConseiller();
+        conseillers.forEach(c -> System.out.println(
+                "Nom: " + c.getNom() + ", Prénom: " + c.getPrenom() + ", Email: " + c.getEmail()
+        ));
     }
 
     public Conseiller getConseillerByEmail(String email) throws SQLException, ClassNotFoundException {

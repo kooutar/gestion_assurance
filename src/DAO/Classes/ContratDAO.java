@@ -29,6 +29,7 @@ public class ContratDAO implements ContratInterface {
             Contrats typeContrat,
             LocalDateTime dateDebut,
             LocalDateTime dateFin,
+            int idClient,
             Optional<Integer> idContrat
     ) throws SQLException {
         // ✅ Sécurité : éviter un Optional null
@@ -42,12 +43,13 @@ public class ContratDAO implements ContratInterface {
         try {
             if (idContrat.isPresent()) {
                 // 👉 UPDATE
-                req = "UPDATE Contrat SET typeContrat=?, dateDebut=?, dateFin=? WHERE id=?";
+                req = "UPDATE Contrat SET typeContrat=?, dateDebut=?, dateFin=?, idClient=? WHERE id=?";
                 ps = connection.prepareStatement(req);
                 ps.setString(1, typeContrat.toString());
                 ps.setObject(2, dateDebut);
                 ps.setObject(3, dateFin);
-                ps.setInt(4, idContrat.get());
+                ps.setInt(4, idClient);
+                ps.setInt(5, idContrat.get());
 
                 int rows = ps.executeUpdate();
                 if (rows > 0) {
@@ -57,11 +59,12 @@ public class ContratDAO implements ContratInterface {
                 }
             } else {
                 // 👉 INSERT
-                req = "INSERT INTO Contrat(typeContrat, dateDebut, dateFin) VALUES (?,?,?)";
+                req = "INSERT INTO Contrat(typeContrat, dateDebut, dateFin,idClient) VALUES (?,?,?,?)";
                 ps = connection.prepareStatement(req);
                 ps.setString(1, typeContrat.toString());
                 ps.setObject(2, dateDebut);
                 ps.setObject(3, dateFin);
+                ps.setInt(4, idClient);
                 ps.executeUpdate();
                 System.out.println("✅ Contrat ajouté avec succès !");
             }

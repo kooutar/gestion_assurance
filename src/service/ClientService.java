@@ -55,4 +55,10 @@ public class ClientService {
                 ));
     }
 
+    public void getAllClient() throws SQLException {
+        ArrayList<Client> clientFilter = clientDAO.getAllClient();
+        clientFilter.forEach(c -> System.out.println(
+                        "Nom: " + c.getNom() + ", Prénom: " + c.getPrenom() + ", Email: " + c.getEmail()
+                ));
+    }
 }

@@ -35,7 +35,8 @@ public class ClientView {
                   supprimerCompte();
                   break;
              case 4:
-
+                   listerTousLesCompte();
+                   break;
              case 5:
                   ChercherClientParSonNom();
                   break;
@@ -43,6 +44,10 @@ public class ClientView {
                  throw new IllegalStateException("Unexpected value: " + choix);
          }
      }
+
+    private void listerTousLesCompte() throws SQLException {
+        clientService.getAllClient();
+    }
 
     private void ChercherClientParSonNom() throws SQLException {
         System.out.println("Veuillez entrer un nom du compte");

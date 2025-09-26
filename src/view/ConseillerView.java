@@ -10,23 +10,26 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class ConseillerView {
-     private Scanner scanner;
-     private ConseillerService conseillerService;
-     private ClientService clientService;
-     public ConseillerView() throws SQLException, ClassNotFoundException {
-         scanner = new Scanner(System.in);
-         conseillerService = new ConseillerService();
-         clientService = new ClientService();
-     }
-    public void menuPrincipal() throws SQLException {
+    private Scanner scanner;
+    private ConseillerService conseillerService;
+    private ClientService clientService;
+
+    public ConseillerView() throws SQLException, ClassNotFoundException {
+        scanner = new Scanner(System.in);
+        conseillerService = new ConseillerService();
+        clientService = new ClientService();
+    }
+
+    public void menuPrincipal() throws SQLException, ClassNotFoundException {
         System.out.println("Menu principal");
         System.out.println("1. Cree compte Conseiller");
         System.out.println("2. Modifier compte Conseiller");
         System.out.println("3. Supprimer compte Conseiller");
         System.out.println("4. affiche tous les clients d'un Conseiller");
-         int choix =scanner.nextInt();
+        System.out.println("5. Afficher les conseillers");
+        int choix = scanner.nextInt();
         scanner.nextLine();
-        switch(choix){
+        switch (choix) {
             case 1:
                 creeCompte();
                 break;
@@ -39,6 +42,9 @@ public class ConseillerView {
             case 4:
                 afficheClientConseiller();
                 break;
+            case 5:
+                afficheAllConseillers();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + choix);
 
@@ -46,12 +52,17 @@ public class ConseillerView {
 
     }
 
+    private void afficheAllConseillers() throws SQLException, ClassNotFoundException {
+        conseillerService.getConseillers();
+
+    }
+
     private void afficheClientConseiller() throws SQLException {
         ArrayList<Client> arrayClient = new ArrayList<>();
         System.out.println("saiser id de conseiller ");
-        int idConseiller= scanner.nextInt();
+        int idConseiller = scanner.nextInt();
         scanner.nextLine();
-        arrayClient=clientService.getClientsConseiller(idConseiller);
+        arrayClient = clientService.getClientsConseiller(idConseiller);
         arrayClient.stream().forEach(System.out::println);
 
     }
@@ -64,25 +75,25 @@ public class ConseillerView {
     }
 
     private void modifierCompte() throws SQLException {
-         System.out.println("saiser id de Compte ");
-         int idCompte = scanner.nextInt();
-         scanner.nextLine();
+        System.out.println("saiser id de Compte ");
+        int idCompte = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("saiser votre nom");
         String nom = scanner.nextLine();
         System.out.println("saiser votre prenom");
         String prenom = scanner.nextLine();
         System.out.println("saiser votre email");
         String email = scanner.nextLine();
-        conseillerService.ajouterConseiller(nom,prenom,email, Optional.of(idCompte));
+        conseillerService.ajouterConseiller(nom, prenom, email, Optional.of(idCompte));
     }
 
     private void creeCompte() throws SQLException {
-         System.out.println("saiser votre nom");
-         String nom = scanner.nextLine();
-         System.out.println("saiser votre prenom");
-         String prenom = scanner.nextLine();
-         System.out.println("saiser votre email");
-         String email = scanner.nextLine();
-        conseillerService.ajouterConseiller(nom,prenom,email,null);
+        System.out.println("saiser votre nom");
+        String nom = scanner.nextLine();
+        System.out.println("saiser votre prenom");
+        String prenom = scanner.nextLine();
+        System.out.println("saiser votre email");
+        String email = scanner.nextLine();
+        conseillerService.ajouterConseiller(nom, prenom, email, null);
     }
 }

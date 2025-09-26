@@ -12,8 +12,8 @@ public class ContratService {
     public ContratService() throws SQLException, ClassNotFoundException {
         contratDAO = new ContratDAO();
     }
-    public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin, Optional<Integer> idContrat) throws SQLException {
-        contratDAO.ajouterContrat(typeContrat,dateDebut,dateFin,idContrat);
+    public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin,int idClient, Optional<Integer> idContrat) throws SQLException {
+        contratDAO.ajouterContrat(typeContrat,dateDebut,dateFin,idClient,idContrat);
 
     }
 
