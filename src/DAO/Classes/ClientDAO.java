@@ -6,7 +6,9 @@ import model.person.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -84,6 +86,22 @@ public class ClientDAO implements ClientInterface {
     @Override
     public boolean modifierClient() {
         return false;
+    }
+
+    public ArrayList<Client> getClientsConseiller(int idConseiller) throws SQLException {
+         ArrayList<Client> clients = new ArrayList<>();
+          String req = "SELECT * FROM Client WHERE id_conseiller = ?";
+          PreparedStatement ps=connection.prepareStatement(req);
+          ps.setInt(1, idConseiller);
+          ResultSet rs=ps.executeQuery();
+          while (rs.next()) {
+              int id=rs.getInt("id");
+              String nom=rs.getString("nom");
+              String prenom=rs.getString("prenom");
+              String email=rs.getString("email");
+              clients.add(new Client(nom,prenom,email,id));
+          }
+         return   clients;
     }
 
 //    @Override

@@ -3,10 +3,14 @@ package service;
 import DAO.Classes.ClientDAO;
 import DAO.Classes.ConseillerDAO;
 import databaseConnection.DataBase;
+import model.person.Client;
 import model.person.Conseiller;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ClientService {
@@ -33,5 +37,9 @@ public class ClientService {
 
     public void supprimerClient(int idClient) throws SQLException {
           clientDAO.supprimerClient(idClient);
+    }
+
+    public ArrayList<Client> getClientsConseiller(int idConseiller) throws SQLException {
+        return   clientDAO.getClientsConseiller(idConseiller);
     }
 }
