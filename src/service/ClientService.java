@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 
 public class ClientService {
@@ -42,4 +43,16 @@ public class ClientService {
     public ArrayList<Client> getClientsConseiller(int idConseiller) throws SQLException {
         return   clientDAO.getClientsConseiller(idConseiller);
     }
+
+    public void ChercherClientParSonNom(String nom) throws SQLException {
+        ArrayList<Client> clientFilter = clientDAO.ChercherClientParSonNom(nom);
+
+        clientFilter.stream()
+                .filter(c -> c.getNom().equalsIgnoreCase(nom)) // filtre par nom
+                .sorted(Comparator.comparing(Client::getPrenom)) // tri par prénom
+                .forEach(c -> System.out.println(
+                        "Nom: " + c.getNom() + ", Prénom: " + c.getPrenom() + ", Email: " + c.getEmail()
+                ));
+    }
+
 }

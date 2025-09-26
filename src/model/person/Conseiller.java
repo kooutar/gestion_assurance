@@ -15,10 +15,12 @@ public class Conseiller extends Person {
         this.conseillerDAO = new ConseillerDAO();
     }
 
-    public void AjouterConseiller() throws SQLException {
+    public ArrayList<Client> getClients() {
+        return clients;
+    }
 
-        conseillerDAO.AjouterConseiller(nom,prenom,email, Optional.ofNullable(Id));
-
+    public void setClients(ArrayList<Client> clients) {
+        this.clients = clients;
     }
 
 }

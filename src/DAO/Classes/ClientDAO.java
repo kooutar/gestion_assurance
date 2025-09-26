@@ -104,6 +104,22 @@ public class ClientDAO implements ClientInterface {
          return   clients;
     }
 
+    public ArrayList<Client> ChercherClientParSonNom(String nomClient) throws SQLException {
+        ArrayList<Client> clients = new ArrayList<>();
+        String req = "SELECT * FROM Client where nom = ?";
+        PreparedStatement ps=connection.prepareStatement(req);
+        ps.setString(1, nomClient);
+        ResultSet rs=ps.executeQuery();
+        while (rs.next()) {
+            int id=rs.getInt("id");
+            String nom=rs.getString("nom");
+            String prenom=rs.getString("prenom");
+            String email=rs.getString("email");
+            clients.add(new Client(nom,prenom,email,id));
+        }
+        return   clients;
+    }
+
 //    @Override
 //    public HashMap<String, Client> getClients() {
 //        return null;
