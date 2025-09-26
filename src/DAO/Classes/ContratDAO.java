@@ -4,7 +4,6 @@ import DAO.Interfaces.ContratInterface;
 import databaseConnection.DataBase;
 import enumeration.Contrats;
 import model.Contrat.Contrat;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
