@@ -6,7 +6,6 @@ import DAO.Interfaces.SinistreInterface;
 import databaseConnection.DataBase;
 import enumeration.Sinistres;
 import model.Sinistre.Sinistre;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

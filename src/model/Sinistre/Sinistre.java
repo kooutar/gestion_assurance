@@ -53,4 +53,6 @@ public class Sinistre {
     public String toString() {
         return super.toString();
     }
+
+
 }

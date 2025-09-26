@@ -3,12 +3,14 @@ package DAO.Classes;
 import DAO.Interfaces.ContratInterface;
 import databaseConnection.DataBase;
 import enumeration.Contrats;
+import model.Contrat.Contrat;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ContratDAO implements ContratInterface {
@@ -20,18 +22,25 @@ public class ContratDAO implements ContratInterface {
     }
 
     @Override
-    public void getContrat() {
+    public ArrayList<Contrat> getContrat(int idClient) throws SQLException {
+        ArrayList<Contrat> contrats = new ArrayList<>();
+        String query = "SELECT * FROM Contrats WHERE idClient = ?";
 
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, idClient);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Contrat contrat = new Contrat(Contrats.valueOf(rs.getString("typeContrat")),rs.getTimestamp("dateDebut").toLocalDateTime(),rs.getTimestamp("dateFin").toLocalDateTime(),rs.getInt("id"));
+                    contrats.add(contrat);
+                }
+            }
+        }
+        return contrats;
     }
 
+
     @Override
-    public void ajouterContrat(
-            Contrats typeContrat,
-            LocalDateTime dateDebut,
-            LocalDateTime dateFin,
-            int idClient,
-            Optional<Integer> idContrat
-    ) throws SQLException {
+    public void ajouterContrat(Contrats typeContrat, LocalDateTime dateDebut, LocalDateTime dateFin, int idClient, Optional<Integer> idContrat) throws SQLException {
         // ✅ Sécurité : éviter un Optional null
         if (idContrat == null) {
             idContrat = Optional.empty();

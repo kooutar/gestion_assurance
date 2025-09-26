@@ -21,10 +21,10 @@ public class ContratView {
         System.out.println("1. ajouter Contrat");
         System.out.println("2. modifier Contrat");
         System.out.println("3. Supprimer Contrat");
-        System.out.println("4. lister Contrats");
-
+        System.out.println("4. lister Contrats d'un client");
         int choix =scanner.nextInt();
         scanner.nextLine();
+
         switch(choix){
             case 1:
                 creeContrat();
@@ -35,8 +35,19 @@ public class ContratView {
             case 3:
                 supprimerContrat();
                 break;
+            case 4:
+                listerContratClient();
+                break;
+
 
         }
+    }
+
+    private void listerContratClient() throws SQLException {
+        System.out.println("saiser id client");
+        int idClient = scanner.nextInt();
+        scanner.nextLine();
+        contratService.listerContratClient(idClient);
     }
 
     private void modifierContrat() {
